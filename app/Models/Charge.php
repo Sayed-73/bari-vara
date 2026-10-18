@@ -33,6 +33,12 @@ class Charge extends Model
         'paid_amount' => 'decimal:2',
     ];
 
+    protected static function booted(): void
+    {
+        // A landlord may edit the amount at any time; status always follows the numbers.
+        static::saving(fn (Charge $charge) => $charge->syncStatus());
+    }
+
     public function lease(): BelongsTo
     {
         return $this->belongsTo(Lease::class);
@@ -48,20 +54,24 @@ class Charge extends Model
         return max(0, round((float) $this->amount - (float) $this->paid_amount, 2));
     }
 
-    /** Recalculate paid_amount and status from the payments table (single source of truth). */
-    public function refreshStatus(): void
+    public function syncStatus(): void
     {
-        $paid = round((float) Payment::withoutGlobalScopes()
-            ->where('charge_id', $this->id)
-            ->sum('amount'), 2);
-
+        $paid = round((float) $this->paid_amount, 2);
         $total = round((float) $this->amount, 2);
 
-        $this->paid_amount = $paid;
         $this->status = $paid <= 0
             ? self::STATUS_UNPAID
             : ($paid >= $total ? self::STATUS_PAID : self::STATUS_PARTIAL);
+    }
 
+    /** Recalculate paid_amount and status from the payments table (single source of truth). */
+    public function refreshStatus(): void
+    {
+        $this->paid_amount = round((float) Payment::withoutGlobalScopes()
+            ->where('charge_id', $this->id)
+            ->sum('amount'), 2);
+
+        $this->syncStatus();
         $this->saveQuietly();
     }
 }
