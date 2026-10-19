@@ -12,6 +12,5 @@ RUN composer install --no-dev --optimize-autoloader
 # Laravel Caching
 RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
 
-EXPOSE 8000
-
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# Render এর ডাইনামিক পোর্টের সাথে কানেক্ট করার কমান্ড
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=10000"]
