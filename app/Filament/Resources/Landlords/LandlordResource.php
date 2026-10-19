@@ -6,8 +6,10 @@ use App\Filament\Resources\Landlords\Pages\CreateLandlord;
 use App\Filament\Resources\Landlords\Pages\EditLandlord;
 use App\Filament\Resources\Landlords\Pages\ListLandlords;
 use App\Models\User;
+use App\Support\LandlordStats;
 use BackedEnum;
 use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
@@ -25,6 +27,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
 class LandlordResource extends Resource
@@ -100,6 +103,9 @@ class LandlordResource extends Resource
                     TextInput::make('custom_unit_limit')
                         ->label('বিশেষ ইউনিট লিমিট (খালি = প্ল্যানের লিমিট)')
                         ->numeric()->integer()->minValue(0),
+                    TextInput::make('sms_credits')
+                        ->label('SMS ক্রেডিট (প্রতি SMS-এ ১টি কাটে)')
+                        ->numeric()->integer()->minValue(0)->default(0),
                     DateTimePicker::make('subscription_ends_at')
                         ->label('সাবস্ক্রিপশন শেষ হবে (খালি = সীমাহীন)')
                         ->seconds(false),
@@ -125,6 +131,17 @@ class LandlordResource extends Resource
                     ->label('মাসিক ফি')
                     ->state(fn (User $record): float => $record->monthlyFee())
                     ->formatStateUsing(fn ($state): string => '৳ ' . number_format((float) $state)),
+                TextColumn::make('summary')
+                    ->label('এই মাসের হিসাব')
+                    ->state(function (User $record): string {
+                        $s = LandlordStats::for($record);
+
+                        return "ইউনিট {$s['occupied']}/{$s['units']} · বিল ৳" . number_format($s['billed'])
+                            . ' · আদায় ৳' . number_format($s['collected'])
+                            . ' · বকেয়া ৳' . number_format($s['due']);
+                    })
+                    ->wrap(),
+                TextColumn::make('sms_credits')->label('SMS'),
                 ToggleColumn::make('is_active')->label('চালু'),
                 TextColumn::make('subscription_ends_at')
                     ->label('মেয়াদ')
@@ -137,6 +154,16 @@ class LandlordResource extends Resource
                 TernaryFilter::make('is_active')->label('চালু/বন্ধ'),
             ])
             ->recordActions([
+                Action::make('view_as')
+                    ->label('ড্যাশবোর্ড দেখো')
+                    ->icon(Heroicon::OutlinedEye)
+                    ->color('info')
+                    ->url(fn (User $record): string => URL::temporarySignedRoute(
+                        'impersonate.start',
+                        now()->addMinutes(30),
+                        ['user' => $record->id],
+                    )),
+                ActionGroup::make([
                 Action::make('extend')
                     ->label('+১ মাস')
                     ->icon(Heroicon::OutlinedPlusCircle)
@@ -159,7 +186,7 @@ class LandlordResource extends Resource
                             'subscription_ends_at' => $record->subscription_ends_at->copy()->subMonthNoOverflow(),
                         ]);
                     }),
-                    Action::make('reset_password')
+                Action::make('reset_password')
                     ->label('পাসওয়ার্ড রিসেট')
                     ->icon(Heroicon::OutlinedKey)
                     ->color('gray')
@@ -177,6 +204,7 @@ class LandlordResource extends Resource
                             ->persistent()
                             ->send();
                     }),
+                ]),
                 EditAction::make(),
             ])
             ->defaultSort('name');

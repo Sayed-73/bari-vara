@@ -14,8 +14,7 @@ return [
         'receipt_pdf' => 'রসিদ PDF (Receipts)',
         'reports' => 'মাসিক রিপোর্ট (Reports)',
         'sms_reminders' => 'SMS reminder',
-        'bkash_collection' => 'bKash/Nagad collection',
-        'tenant_portal' => 'ভাড়াটিয়া পোর্টাল (Tenant portal)',
+        'bkash_collection' => 'অনলাইন পেমেন্ট: bKash/Nagad/কার্ড/ব্যাংক',
     ],
 
     // Features for a landlord who has no plan assigned yet.
@@ -25,5 +24,5 @@ return [
     'default_plan' => 'Free',
 
     // Unit limit for a landlord with no plan and no custom limit.
-    'no_plan_unit_limit' => 3,
+    'no_plan_unit_limit' => 2,
 ];

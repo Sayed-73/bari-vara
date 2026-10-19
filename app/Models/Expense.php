@@ -11,11 +11,11 @@ class Expense extends Model
     use BelongsToOwner;
 
     public const CATEGORIES = [
-        'repair' => 'Repair',
-        'caretaker' => 'Caretaker salary',
-        'utility' => 'Utility',
-        'tax' => 'Tax / Holding',
-        'other' => 'Other',
+        'repair' => 'মেরামত',
+        'caretaker' => 'কেয়ারটেকার বেতন',
+        'utility' => 'ইউটিলিটি',
+        'tax' => 'ট্যাক্স / হোল্ডিং',
+        'other' => 'অন্যান্য',
     ];
 
     protected $fillable = ['property_id', 'category', 'amount', 'spent_on', 'note'];
@@ -24,6 +24,11 @@ class Expense extends Model
         'amount' => 'decimal:2',
         'spent_on' => 'date',
     ];
+
+    public function ownedForeignKeys(): array
+    {
+        return ['property_id' => Property::class];
+    }
 
     public function property(): BelongsTo
     {

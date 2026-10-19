@@ -11,3 +11,4 @@ Artisan::command('inspire', function () {
 
 // Add at the BOTTOM of routes/console.php:
 Schedule::command('rent:generate-charges')->monthlyOn(1, '06:00');
+Schedule::command('rent:send-reminders')->dailyAt('09:00');

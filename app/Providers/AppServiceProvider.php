@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Filament\Support\Facades\FilamentView;
+use Filament\View\PanelsRenderHook;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+         FilamentView::registerRenderHook(
+            PanelsRenderHook::BODY_START,
+            fn (): string => session()->has('impersonator_id') ? view('impersonation-banner')->render() : '',
+        );
+
+        // makes the panel installable as an app (PWA)
+        FilamentView::registerRenderHook(PanelsRenderHook::HEAD_END, fn (): string => view('pwa-head')->render());
+        FilamentView::registerRenderHook(PanelsRenderHook::BODY_END, fn (): string => view('pwa-register')->render());
     }
 }

@@ -2,11 +2,15 @@
 
 namespace App\Models\Concerns;
 
+use App\Models\PaymentAccount;
 use App\Models\Plan;
+use App\Models\Property;
 use App\Models\SubscriptionLog;
+use App\Models\Unit;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -19,7 +23,7 @@ trait HasSubscription
     {
         $this->mergeFillable([
             'phone', 'is_active', 'plan_id', 'custom_fee',
-            'custom_unit_limit', 'subscription_ends_at', 'feature_overrides',
+            'custom_unit_limit', 'subscription_ends_at', 'feature_overrides', 'sms_credits',
         ]);
 
         $this->mergeCasts([
@@ -27,6 +31,7 @@ trait HasSubscription
             'is_active' => 'boolean',
             'custom_fee' => 'decimal:2',
             'custom_unit_limit' => 'integer',
+            'sms_credits' => 'integer',
             'subscription_ends_at' => 'datetime',
             'feature_overrides' => 'array',
         ]);
@@ -72,13 +77,18 @@ trait HasSubscription
     {
         return [
             'is_active', 'plan_id', 'custom_fee', 'custom_unit_limit',
-            'subscription_ends_at', 'feature_overrides',
+            'subscription_ends_at', 'feature_overrides', 'sms_credits',
         ];
     }
 
     public function plan(): BelongsTo
     {
         return $this->belongsTo(Plan::class);
+    }
+
+    public function paymentAccount(): HasOne
+    {
+        return $this->hasOne(PaymentAccount::class);
     }
 
     public function subscriptionLogs(): HasMany
@@ -113,6 +123,21 @@ trait HasSubscription
         return (int) config('features.no_plan_unit_limit', 3);
     }
 
+    public function canAddUnit(): bool
+    {
+        $limit = $this->unitLimit();
+
+        return $limit === null
+            || Unit::withoutGlobalScopes()->where('user_id', $this->getKey())->count() < $limit;
+    }
+
+    /** First property is always allowed; more need the "multiple_properties" feature. */
+    public function canAddProperty(): bool
+    {
+        return $this->hasFeature('multiple_properties')
+            || ! Property::withoutGlobalScopes()->where('user_id', $this->getKey())->exists();
+    }
+
     /** Priority: per-landlord override (on/off) > plan features > global defaults. */
     public function hasFeature(string $key): bool
     {
@@ -137,7 +162,8 @@ trait HasSubscription
     {
         return match ($panel->getId()) {
             'admin' => (bool) $this->is_admin,
-            default => ! $this->is_admin && $this->hasActiveSubscription(),
+            default => ! $this->is_admin
+                && ($this->hasActiveSubscription() || session()->has('impersonator_id')),
         };
     }
 }
