@@ -1,6 +1,6 @@
 FROM php:8.3-apache
 
-# প্রয়োজনীয় সিস্টেম লাইব্রেরি এবং PHP এক্সটেনশন ইনস্টল করা
+# প্রয়োজনীয় সিস্টেম লাইব্রেরি এবং PHP এক্সটেনশন ইনস্টল করা (intl ও zip এর জন্য লাইব্রেরিসহ)
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
@@ -10,8 +10,10 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     libpq-dev \
+    libicu-dev \
+    libzip-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql pdo_pgsql
+    && docker-php-ext-install gd pdo pdo_mysql pdo_pgsql intl zip
 
 # Apache এর জন্য Mod_Rewrite এনাবল করা (Laravel এর রাউটিং এর জন্য জরুরি)
 RUN a2enmod rewrite
