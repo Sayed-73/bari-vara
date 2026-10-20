@@ -11,8 +11,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="{{ asset('manifest.webmanifest') }}">
-    <link rel="icon" href="{{ asset('icons/launchericon-192x192.png') }}" type="image/png">
-    <link rel="icon" href="{{ asset('icons/launchericon-512x512.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('icons/icon-192.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('icons/icon-512.png') }}" type="image/png">
     <link rel="apple-touch-icon" href="{{ asset('icons/apple-touch-icon.png') }}">
     <style>
         :root { --bg:#fffbeb; --card:#fff; --text:#1f2937; --muted:#6b7280; --line:#e5e7eb; --brand:#d97706; }

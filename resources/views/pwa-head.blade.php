@@ -6,3 +6,4 @@
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon" href="{{ asset('icons/apple-touch-icon.png') }}">
 <link rel="icon" href="{{ asset('icons/icon-192.png') }}" type="image/png">
+<link rel="icon" href="{{ asset('icons/icon-512.png') }}" type="image/png">
