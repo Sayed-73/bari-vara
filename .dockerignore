@@ -1,0 +1,17 @@
+.git
+.github
+.idea
+.vscode
+node_modules
+vendor
+.env
+.env.*
+!.env.example
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+# stale caches built on Windows contain Windows paths and dev-only providers: they break the container
+bootstrap/cache/*.php
+tests
+*.zip

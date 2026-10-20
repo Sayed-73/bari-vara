@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CronController;
 use App\Http\Controllers\ImpersonationController;
 use App\Http\Controllers\LegalController;
 use App\Http\Controllers\OnlinePaymentController;
@@ -35,3 +36,6 @@ Route::get('/', [LegalController::class, 'home'])->name('home');
 Route::get('/privacy', [LegalController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [LegalController::class, 'terms'])->name('terms');
 Route::get('/account-deletion', [LegalController::class, 'accountDeletion'])->name('account.deletion');
+
+// For hosts without cron (Render free): external pinger calls this every 5 minutes (secret in CRON_TOKEN)
+Route::get('/cron/{token}', [CronController::class, 'run'])->middleware('throttle:30,1')->name('cron.run');
