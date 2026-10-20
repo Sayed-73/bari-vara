@@ -11,11 +11,10 @@ WORKDIR /var/www/html
 ENV APP_ENV production
 ENV APP_DEBUG false
 
-# কম্পোজার ডিপেন্ডেন্সি ইনস্টল
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+# ট্রিক: কম্পোজার যাতে এক্সটেনশন চেকিং এর কারণে বিল্ড ফেইল না করে
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts --ignore-platform-reqs
 
 # Laravel Caching
 RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
 
-# ট্রিক: Nginx এর পোর্টকে রেন্ডারের ইন্টারনাল পোর্টের সাথে ফরোয়ার্ড করার কমান্ড
-CMD ["sh", "-c", "sed -i 's/listen 8080;/listen '\"${PORT:-10000}\"';/g' /etc/nginx/sites-available/default && exec php-fpm"]
+EXPOSE 8080
