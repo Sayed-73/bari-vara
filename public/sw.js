@@ -6,8 +6,8 @@ const CACHE_NAME = 'bari-vara-pwa-v2';
 const OFFLINE_URL = '/offline.html';
 const APP_ASSETS = [
   OFFLINE_URL,
-  '/icons/launchericon-192x192.png',
-  '/icons/launchericon-512x512.png',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
   '/icons/maskable-512.png',
   '/icons/apple-touch-icon.png',
 ];
