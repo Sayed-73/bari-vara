@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('support.company') }} — বাড়ি ভাড়ার হিসাব এখন সহজ</title>
     <meta name="description" content="বাড়ি ভাড়া, বিল, পেমেন্ট, রসিদ ও SMS রিমাইন্ডার এক জায়গায়। বাড়িওয়ালাদের জন্য সহজ বাংলা অ্যাপ।">
-    <link rel="manifest" href="/manifest.webmanifest">
     <meta name="theme-color" content="#f59e0b">
-    <link rel="icon" href="/icons/icon-192.png">
+    <meta name="background-color" content="#111827">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="{{ asset('manifest.webmanifest') }}">
+    <link rel="icon" href="{{ asset('icons/launchericon-192x192.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('icons/launchericon-512x512.png') }}" type="image/png">
+    <link rel="apple-touch-icon" href="{{ asset('icons/apple-touch-icon.png') }}">
     <style>
         :root { --bg:#fffbeb; --card:#fff; --text:#1f2937; --muted:#6b7280; --line:#e5e7eb; --brand:#d97706; }
         @media (prefers-color-scheme: dark) { :root { --bg:#111827; --card:#1f2937; --text:#f3f4f6; --muted:#9ca3af; --line:#374151; } }
