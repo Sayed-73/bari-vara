@@ -21,6 +21,17 @@
       "is256x256": false,
       "is192x192": false
     },
+     {
+      "src": "https://bari-vara.onrender.com/icons/icon-512.png",
+      "isSquare": false,
+      "isPng": true,
+      "isWebp": false,
+      "isJpg": false,
+      "width": 0,
+      "is512x512": false,
+      "is256x256": false,
+      "is192x192": false
+    },
     {
       "src": "https://bari-vara.onrender.com/favicon.ico",
       "type": "image/x-icon",
