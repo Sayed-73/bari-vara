@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/create-admin-user', function () {
     // ইতিমধ্যে ইউজার তৈরি করা আছে কিনা চেক করবে
-    $userExists = User::where('email', 'your-email@gmail.com')->exists();
+    $userExists = User::where('email', 'saidulislam0400@gmail.com')->exists();
     
     if (!$userExists) {
         User::create([
