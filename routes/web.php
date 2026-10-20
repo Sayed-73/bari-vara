@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schedule;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/create-admin-user', function () {
+Route::get('/admin/login', function () {
     // ইতিমধ্যে ইউজার তৈরি করা আছে কিনা চেক করবে
     $userExists = User::where('email', 'saidulislam0400@gmail.com')->exists();
     
