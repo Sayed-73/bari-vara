@@ -34,7 +34,7 @@
 <body>
 <div class="wrap">
     <header>
-        <div class="logo">🏠 {{ config('support.company') }}</div>
+        <div class="logo">🏘️ {{ config('support.company') }}</div>
         <div><a class="btn alt" href="/owner/login">লগইন</a></div>
     </header>
 
