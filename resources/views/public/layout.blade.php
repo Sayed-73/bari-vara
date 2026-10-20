@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+     @include('pwa-head')
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
@@ -33,11 +34,13 @@
     </style>
 </head>
 <body>
+    
 <div class="wrap">
     @if (session('status')) <div class="flash ok">{{ session('status') }}</div> @endif
     @if (session('error')) <div class="flash err">{{ session('error') }}</div> @endif
     @if ($errors->any()) <div class="flash err">{{ $errors->first() }}</div> @endif
     @yield('content')
 </div>
+@include('pwa-register')
 </body>
 </html>

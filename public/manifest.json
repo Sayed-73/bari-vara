@@ -1,0 +1,39 @@
+{
+  "background_color": "#ffffff",
+  "description": "বাড়ি ভাড়া, বিল, পেমেন্ট, রসিদ ও SMS রিমাইন্ডার এক জায়গায়। বাড়িওয়ালাদের জন্য সহজ বাংলা অ্যাপ।",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Bari vara",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Bari vara",
+  "start_url": "/",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "https://bari-vara.onrender.com/icons/icon-192.png",
+      "isSquare": false,
+      "isPng": true,
+      "isWebp": false,
+      "isJpg": false,
+      "width": 0,
+      "is512x512": false,
+      "is256x256": false,
+      "is192x192": false
+    },
+    {
+      "src": "https://bari-vara.onrender.com/favicon.ico",
+      "type": "image/x-icon",
+      "isSquare": false,
+      "isPng": false,
+      "isWebp": false,
+      "isJpg": false,
+      "width": 0,
+      "is512x512": false,
+      "is256x256": false,
+      "is192x192": false
+    }
+  ],
+  "id": "/",
+  "lang": "bn"
+}
