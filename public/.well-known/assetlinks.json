@@ -2,7 +2,7 @@
       "relation": ["delegate_permission/common.handle_all_urls"],
       "target": {
         "namespace": "android_app",
-        "package_name": "com.onrender.bari_vara.twa",
-        "sha256_cert_fingerprints": ["1F:0F:B6:E3:59:A4:42:90:8C:B1:F8:1D:CF:E8:16:6F:4E:4E:B9:4B:29:BB:EA:12:27:7D:9E:AD:33:90:3F:6B"]
+        "package_name": "com.bari_varamanager.app",
+        "sha256_cert_fingerprints": ["19:83:B3:D4:06:E2:A4:86:19:A9:B2:E2:94:C4:CD:8D:07:19:44:70:27:A9:3A:9D:65:24:B2:29:8F:EE:EE:85"]
       }
     }]
