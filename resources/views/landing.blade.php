@@ -81,6 +81,7 @@
         <a href="{{ route('terms') }}">শর্তাবলী</a>
         <a href="{{ route('account.deletion') }}">অ্যাকাউন্ট মুছে ফেলা</a>
         <div>© {{ date('Y') }} {{ config('support.company') }}</div>
+        <a href="/admin/login" style="font-size:12px; opacity:0.5">Admin panel</a>
     </footer>
 </div>
 </body>
