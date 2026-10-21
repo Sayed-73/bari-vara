@@ -1,12 +1,8 @@
-[
-  {
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "com.example.baribhara",
-      "sha256_cert_fingerprints": [
-        "REPLACE:WITH:THE:SHA256:FINGERPRINT:FROM:PLAY:CONSOLE:APP:SIGNING"
-      ]
-    }
-  }
-]
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.onrender.bari_vara.twa",
+        "sha256_cert_fingerprints": ["1F:0F:B6:E3:59:A4:42:90:8C:B1:F8:1D:CF:E8:16:6F:4E:4E:B9:4B:29:BB:EA:12:27:7D:9E:AD:33:90:3F:6B"]
+      }
+    }]
