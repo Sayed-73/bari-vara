@@ -5,7 +5,7 @@
   "description": "বাড়ি ভাড়া, বিল, পেমেন্ট, রসিদ ও SMS রিমাইন্ডার এক জায়গায়।",
   "lang": "bn",
   "dir": "ltr",
-  "start_url": "/owner",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
