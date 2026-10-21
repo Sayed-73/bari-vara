@@ -12,24 +12,9 @@
   "background_color": "#111827",
   "theme_color": "#f59e0b",
   "categories": ["business", "finance", "productivity"],
-"icons": [
-  {
-    "src": "https://raw.githubusercontent.com/Sayed-73/bari-vara/main/public/icons/icon-192.png",
-    "sizes": "192x192",
-    "type": "image/png",
-    "purpose": "any"
-  },
-  {
-    "src": "https://raw.githubusercontent.com/Sayed-73/bari-vara/main/public/icons/icon-512.png",
-    "sizes": "512x512",
-    "type": "image/png",
-    "purpose": "any"
-  },
-  {
-    "src": "https://raw.githubusercontent.com/Sayed-73/bari-vara/main/public/icons/maskable-512.png",
-    "sizes": "512x512",
-    "type": "image/png",
-    "purpose": "maskable"
-  }
-]
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
 }
