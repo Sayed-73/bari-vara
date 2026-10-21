@@ -5,8 +5,8 @@
   "description": "বাড়ি ভাড়া, বিল, পেমেন্ট, রসিদ ও SMS রিমাইন্ডার এক জায়গায়।",
   "lang": "bn",
   "dir": "ltr",
-  "start_url": "https://bari-vara.onrender.com/",
-  "scope": "https://bari-vara.onrender.com/",
+  "start_url": "/owner",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#111827",
@@ -18,19 +18,19 @@
   ],
   "icons": [
     {
-      "src": "https://bari-vara.onrender.com/icons/icon-192.png",
+      "src": "/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://bari-vara.onrender.com/icons/icon-512.png",
+      "src": "/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://bari-vara.onrender.com/icons/maskable-512.png",
+      "src": "/icons/maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
