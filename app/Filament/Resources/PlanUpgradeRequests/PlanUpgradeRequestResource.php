@@ -103,14 +103,14 @@ class PlanUpgradeRequestResource extends Resource
                 ImageColumn::make('screenshot_path')
                     ->label('স্ক্রিনশট')
                     ->disk('public')
-                    // ->height(48)
-                    // ->width(64)
-                    // ->extraImgAttributes(['class' => 'rounded-lg object-cover cursor-pointer ring-1 ring-slate-200 dark:ring-slate-700'])
-                    // ->defaultImageUrl(null)
-                    // ->placeholder('—')
+                    ->height(48)
+                    ->width(64)
+                    ->extraImgAttributes(['class' => 'rounded-lg object-cover cursor-pointer ring-1 ring-slate-200 dark:ring-slate-700'])
+                    ->defaultImageUrl(null)
+                    ->placeholder('—')
                     ->action(
                         Action::make('view_screenshot_modal')
-                        ->label('View')
+                            ->label('View')
                             ->modalHeading('পেমেন্ট স্ক্রিনশট')
                             ->modalContent(fn (PlanUpgradeRequest $record): HtmlString => new HtmlString(
                                 '<div class="flex flex-col items-center gap-4 p-4">'
