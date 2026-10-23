@@ -24,6 +24,7 @@ trait HasSubscription
         $this->mergeFillable([
             'phone', 'is_active', 'plan_id', 'custom_fee',
             'custom_unit_limit', 'subscription_ends_at', 'feature_overrides', 'sms_credits',
+            'pending_plan_id', 'plan_upgrade_status',
         ]);
 
         $this->mergeCasts([
@@ -34,6 +35,8 @@ trait HasSubscription
             'sms_credits' => 'integer',
             'subscription_ends_at' => 'datetime',
             'feature_overrides' => 'array',
+            'pending_plan_id' => 'integer',
+            'plan_upgrade_status' => 'string',
         ]);
     }
 
@@ -78,6 +81,7 @@ trait HasSubscription
         return [
             'is_active', 'plan_id', 'custom_fee', 'custom_unit_limit',
             'subscription_ends_at', 'feature_overrides', 'sms_credits',
+            'pending_plan_id', 'plan_upgrade_status',
         ];
     }
 
@@ -165,5 +169,34 @@ trait HasSubscription
             default => ! $this->is_admin
                 && ($this->hasActiveSubscription() || session()->has('impersonator_id')),
         };
+    }
+
+    public function hasPendingPlanUpgrade(): bool
+    {
+        return ! empty($this->pending_plan_id)
+            && in_array($this->plan_upgrade_status, ['pending', 'submitted'], true);
+    }
+
+    public function effectivePlan(): ?Plan
+    {
+        if ($this->hasPendingPlanUpgrade()) {
+            return Plan::find($this->pending_plan_id);
+        }
+
+        return $this->plan;
+    }
+
+    public function approvePlanUpgrade(): void
+    {
+        if (empty($this->pending_plan_id)) {
+            return;
+        }
+
+        $this->update([
+            'plan_id' => $this->pending_plan_id,
+            'pending_plan_id' => null,
+            'plan_upgrade_status' => 'approved',
+            'subscription_ends_at' => null,
+        ]);
     }
 }
