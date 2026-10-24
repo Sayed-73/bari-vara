@@ -31,7 +31,8 @@ if [ "$ok" -ne 1 ]; then
   exit 1
 fi
 
-# 4) Filament assets + production caches (each is optional: a failure here must not stop the site)
+# 4) Storage symlink, Filament assets + production caches (each is optional: a failure here must not stop the site)
+php artisan storage:link --force || true
 php artisan filament:assets || true
 php artisan config:cache || true
 php artisan route:cache || true

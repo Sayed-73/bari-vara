@@ -2,5 +2,5 @@ services:
   - type: web
     name: bari-vara
     env: php
-    buildCommand: composer install --no-dev --optimize-autoloader
-    startCommand: php -S 0.0.0.0:$PORT -t public
+    buildCommand: composer install --no-dev --optimize-autoloader && php artisan storage:link --force
+    startCommand: php artisan storage:link --force && php -S 0.0.0.0:$PORT -t public

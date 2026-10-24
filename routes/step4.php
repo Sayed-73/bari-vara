@@ -5,9 +5,10 @@ use App\Http\Controllers\ImpersonationController;
 use App\Http\Controllers\LegalController;
 use App\Http\Controllers\OnlinePaymentController;
 use App\Http\Controllers\PublicBillController;
-use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReceiptController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 // Public tenant pages (unguessable tokens, rate limited)
 Route::get('/p/{token}', [PublicBillController::class, 'show'])->middleware('throttle:60,1')->name('bill.show');
@@ -39,3 +40,16 @@ Route::get('/account-deletion', [LegalController::class, 'accountDeletion'])->na
 
 // For hosts without cron (Render free): external pinger calls this every 5 minutes (secret in CRON_TOKEN)
 Route::get('/cron/{token}', [CronController::class, 'run'])->middleware('throttle:30,1')->name('cron.run');
+
+// Fallback storage route (ensures public storage files can be served even if symlink fails on Render or shared hosting)
+Route::get('/storage/{path}', function (string $path) {
+    try {
+        if (! Storage::disk('public')->exists($path)) {
+            abort(404);
+        }
+
+        return Storage::disk('public')->response($path);
+    } catch (Throwable) {
+        abort(404);
+    }
+})->where('path', '.*')->name('public.storage');

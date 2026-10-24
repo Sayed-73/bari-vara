@@ -29,7 +29,7 @@ class ManageUnits extends ManageRecords
     protected function getHeaderActions(): array
     {
         $user = auth()->user();
-        $adminNumber = config('support.whatsapp', '01XXXXXXXXX');
+        $adminNumber = config('support.whatsapp', '01410666088');
         $latestRequest = $user?->planUpgradeRequests()->latest()->first();
 
         $statusAction = Action::make('plan_upgrade_status')
@@ -85,7 +85,8 @@ class ManageUnits extends ManageRecords
                     ->label('যে নম্বর থেকে পাঠানো হয়েছে')
                     ->tel()
                     ->placeholder('01XXXXXXXXX')
-                    ->helperText('যদি থাকে'),
+                    ->helperText('full number or last 4 digit')
+                    ->required(),
                 TextInput::make('trx_id')
                     ->label('Transaction ID')
                     ->required()
